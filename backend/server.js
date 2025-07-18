@@ -4,19 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Or specify your frontend URL for more security
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
-
 app.use(cors({ origin: '*' }));
-app.use(express.json({ limit: '5mb' })); // or higher if needed
+app.use(express.json());
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/leaderboard', {
